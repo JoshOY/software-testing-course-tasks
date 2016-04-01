@@ -10,7 +10,14 @@ public class Date {
     private boolean errFlag;
 
     public Date(int year, int month, int day) {
-        errFlag = false;
+        this.errFlag = false;
+        this.setYear(year);
+        this.setMonth(month);
+        this.setDay(day);
+    }
+
+    public Date(int year, int month, int day, boolean errFlag) {
+        this.errFlag = errFlag;
         this.setYear(year);
         this.setMonth(month);
         this.setDay(day);
@@ -58,8 +65,8 @@ public class Date {
             this.year = year;
         }
         catch (InvalidDateException err) {
-            err.printStackTrace();
-            errFlag = true;
+            // err.printStackTrace();
+            this.errFlag = true;
         }
     }
 
@@ -75,8 +82,8 @@ public class Date {
             this.month = month;
         }
         catch (InvalidDateException err) {
-            errFlag = true;
-            err.printStackTrace();
+            this.errFlag = true;
+            // err.printStackTrace();
         }
     }
 
@@ -86,6 +93,7 @@ public class Date {
 
     public void setDay(int day) {
         try {
+            this.day = day;
             if ((this.month == 1) || (this.month == 3) || (this.month == 5) || (this.month == 7)
                     || (this.month == 8) || (this.month == 10) || (this.month == 12)) {
                 if (this.day > 31) {
@@ -106,22 +114,20 @@ public class Date {
                 if (DateUtil.isLeapYear(this.year)) {
                     if (this.day > 29) {
                         errFlag = true;
-                        throw new InvalidDateException();
                     }
                 }
                 /* Normal years */
                 else {
                     if (this.day > 28) {
                         errFlag = true;
-                        throw new InvalidDateException();
                     }
                 }
             }
-            this.day = day;
+
         }
         catch (InvalidDateException err) {
-            errFlag = true;
-            err.printStackTrace();
+            this.errFlag = true;
+            // err.printStackTrace();
         }
     }
 
@@ -130,10 +136,10 @@ public class Date {
             return new Date(this.getYear() + 1, 1, 1);
         }
         else if (DateUtil.isLastDayOfMonth(this)) {
-            return new Date(this.getYear(), this.getMonth() + 1, 1);
+            return new Date(this.getYear(), this.getMonth() + 1, 1, this.errFlag);
         }
         else {
-            return new Date(this.getYear(), this.getMonth(), this.getDay() + 1);
+            return new Date(this.getYear(), this.getMonth(), this.getDay() + 1, this.errFlag);
         }
     }
 }

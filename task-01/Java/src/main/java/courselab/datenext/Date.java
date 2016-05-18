@@ -59,7 +59,12 @@ public class Date {
 
     public void setYear(int year) {
         try {
-            if (year < 0) {
+            if (year < 1800) {
+                this.errFlag = true;
+                throw new InvalidDateException();
+            }
+            if (year > 3000) {
+                this.errFlag = true;
                 throw new InvalidDateException();
             }
             this.year = year;

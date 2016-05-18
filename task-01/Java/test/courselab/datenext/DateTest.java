@@ -28,6 +28,7 @@ public class DateTest {
 
     @Test
     public void testNextDay() throws Exception {
+
         assertEquals( "2016-03-16", ( new Date(2016, 3, 15).nextDay().toString()) );
         assertEquals( "2016-03-02", ( new Date(2016, 3, 1).nextDay().toString()) );
         assertEquals( "2016-04-01", ( new Date(2016, 3, 31).nextDay().toString()) );
@@ -36,6 +37,12 @@ public class DateTest {
         assertEquals( "2016-03-01", ( new Date(2016, 2, 29).nextDay().toString()) );
         assertEquals( "2015-03-01", ( new Date(2015, 2, 28).nextDay().toString()) );
         assertEquals( "2016-01-01", ( new Date(2015, 12, 31).nextDay().toString()) );
+        assertEquals( "2017-01-01", ( new Date(2016, 12, 31).nextDay().toString()) );
+
+        assertEquals( "Invalid Date", ( new Date(1799, 5, 5).nextDay().toString()) );
+        assertEquals( "Invalid Date", ( new Date(3001, 5, 5).nextDay().toString()) );
+        assertEquals( "Invalid Date", ( new Date(1900, 2, 29).nextDay().toString()) );
+        assertEquals( "Invalid Date", ( new Date(1996, 13, 5).nextDay().toString()) );
         assertEquals( "Invalid Date", ( new Date(2015, 2, 29).nextDay().toString()) );
         assertEquals( "Invalid Date", ( new Date(2015, 12, 32).nextDay().toString()) );
         assertEquals( "Invalid Date", ( new Date(2015, -1, -10).nextDay().toString()) );
